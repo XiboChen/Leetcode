@@ -1,5 +1,5 @@
-class Solution { 
-public:
+class Solution {  //O(V+E)  |  O(E)
+private:
     vector<vector<int>> edges;
     vector<int> dfn;
     vector<int> low;
@@ -44,5 +44,6 @@ public:
             }
         }
     }
-    
+    //https://www.cnblogs.com/nullzx/p/7968110.html
 };
+
