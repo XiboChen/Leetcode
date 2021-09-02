@@ -11,10 +11,35 @@
  */
 class Solution {
 public:
-    TreeNode* searchBST(TreeNode* root, int val) {
+    TreeNode* searchBST(TreeNode* root, int val) { //O(H)
         if(!root) return NULL;
         if(root->val==val) return root;
-        return root->val>val?searchBST(root->left,val):searchBST(root->right,val);
+        if(val<root->val) return searchBST(root->left,val);
+        else return searchBST(root->right,val);
     }
     
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /*iteration*/
+//         while(root&& root->val!=val){
+//             root=root->val>val?root->left:root->right;
+//         }
+//         return root;
+        
+//         /*recursion*/
+//         // if(!root) return NULL;
+//         // if(root->val==val) return root;
+//         // return root->val>val?searchBST(root->left,val):searchBST(root->right,val);
