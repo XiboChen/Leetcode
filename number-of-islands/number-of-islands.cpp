@@ -1,28 +1,24 @@
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
-        if(grid.empty() || grid[0].empty()) return 0;
         int m=grid.size(),n=grid[0].size(),res=0;
-        vector<vector<bool>> visited(m,vector<bool>(n));
-        vector<int> corX={-1,0,1,0},corY={0,1,0,-1};
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(grid[i][j]=='0'||visited[i][j]==true) continue;
-                ++res;
-                queue<int> q{{i*n+j}};
-                while(!q.empty()){
-                    int t=q.front();q.pop();
-                    for(int k=0;k<4;k++){
-                        int x=t/n+corX[k],y=t%n+corY[k];
-                        if(x<0 || y<0 || x>=m || y>=n || grid[x][y]=='0' || visited[x][y])
-                            continue;
-                        visited[x][y]=true;
-                        q.push(x*n+y);
-                    }
-                }
+        vector<vector<int>> visited(m,vector<int>(n,0));
+        for(int i=0;i<m;++i){
+            for(int j=0;j<n;++j){
+                res+=grid[i][j]-'0';
+                dfs(grid,visited,m,n,i,j);
             }
         }
-        
         return res;
+    }
+    
+    void dfs(vector<vector<char>>& grid,vector<vector<int>>& visited,const int& m,const int& n,int i,int j){
+        if(i<0||j<0||i>=m||j>=n||grid[i][j]=='0'||visited[i][j]==1) return;
+        visited[i][j]=1;
+        grid[i][j]='0';
+        dfs(grid,visited,m,n,i+1,j);
+        dfs(grid,visited,m,n,i-1,j);
+        dfs(grid,visited,m,n,i,j+1);
+        dfs(grid,visited,m,n,i,j-1);
     }
 };
