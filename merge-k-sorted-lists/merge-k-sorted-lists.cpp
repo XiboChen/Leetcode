@@ -11,42 +11,22 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        return helper(lists,0,(int)lists.size()-1);
-    }
-    
-    ListNode* helper(vector<ListNode*>& lists,int start,int end){
-        if(start>end) return NULL;
-        if(start==end) return lists[start];
-        int mid=start+(end-start)/2;
-        ListNode* l1=helper(lists,start,mid);
-        ListNode* l2=helper(lists,mid+1,end);
-        return mergeTwoLists(l1,l2);
-    }
-    
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* dummy=new ListNode(-1);
-        ListNode* cur=dummy;
-        while(l1 && l2){
-            if(l1->val<l2->val){
-                cur->next=l1;
-                l1=l1->next;
-            }
-            else{
-                cur->next=l2;
-                l2=l2->next;
-            }
-            cur=cur->next;
+        auto cmp=[](ListNode* a,ListNode* b){
+            return a->val>b->val;
+        };
+        priority_queue<ListNode*,vector<ListNode*>,decltype(cmp)> q(cmp);
+        for(auto list:lists){
+            if(list) q.push(list);
         }
-        cur->next=l1?l1:l2;
+        
+        ListNode* dummy=new ListNode(),*l=dummy;
+        while(!q.empty()){
+            l->next=q.top();q.pop();
+            l=l->next;
+            if(l->next) q.push(l->next);
+        }
         return dummy->next;
-        // if (!l1) return l2;
-        // if (!l2) return l1;
-        // if (l1->val < l2->val) {
-        //     l1->next = mergeTwoLists(l1->next, l2);
-        //     return l1;
-        // } else {
-        //     l2->next = mergeTwoLists(l1, l2->next);
-        //     return l2;
-        // }
     }
+    
+    
 };
