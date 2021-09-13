@@ -3,23 +3,23 @@ public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         unordered_set<string> wordset(wordList.begin(),wordList.end());
         if(!wordset.count(endWord)) return 0;
-        queue<string> q;
-        q.push(beginWord);
-        int step=0,l=beginWord.size();
+        queue<string> q{{beginWord}};
+        int res=0;
         while(!q.empty()){
-            ++step;
-            for(int i=q.size();i>0;--i){
-                auto t=q.front();q.pop();
-                for(int i=0;i<l;i++){           //遍历每个单词的每一位
-                    char ch=t[i];
-                    for(int j='a';j<='z';j++){
-                        t[i]=j;
-                        if(t==endWord) return step+1;
-                        if(!wordset.count(t)) continue;
-                        wordset.erase(t);
-                        q.push(t);
+            ++res;
+           
+            for(int j=q.size();j>0;--j){
+                string w=q.front();q.pop();
+                for(int i=0;i<w.size();++i){
+                    string neww=w;
+                    for(int k='a';k<='z';++k){
+                        neww[i]=k;
+                        if(neww==endWord) return res+1;
+                        if(!wordset.count(neww)) continue;
+                        q.push(neww);
+                        wordset.erase(neww);
                     }
-                    t[i]=ch;          //变回去
+                    neww=w;
                 }
             }
         }
