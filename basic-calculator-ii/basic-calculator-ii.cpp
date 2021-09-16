@@ -2,30 +2,26 @@ class Solution {
 public:
     int calculate(string s) {
         stack<int> st;
-        long cur=0,n=s.size(),res=0;
-        char operation='+';
-        for(int i=0;i<n;i++){
-            
-            if(isdigit(s[i])){
-                cur=cur*10+s[i]-'0';
+        char op='+';
+        long dig=0,res=0,n=s.size();
+        for(int i=0;i<s.size();++i){
+            if(s[i]>='0'&&s[i]<='9'){
+                dig=dig*10+s[i]-'0';
             }
-            if(!isdigit(s[i])&&s[i]!=' ' || i==n-1){
-                if(operation=='+')
-                    st.push(cur);
-                if(operation=='-')
-                    st.push(-cur);
-                if(operation=='*'||operation=='/'){
-                    int t=(operation=='*')?cur*st.top():st.top()/cur;
+            if((s[i]<'0' && s[i]!=' ')||i==n-1){
+                if(op=='+') st.push(dig);
+                if(op=='-') st.push(-dig);
+                if(op=='*'||op=='/'){
+                    int tmp=(op=='*')?st.top()*dig:st.top()/dig;
                     st.pop();
-                    st.push(t);
+                    st.push(tmp);
                 }
-                operation=s[i];
-                cur=0;
+                op=s[i];
+                dig=0;
             }
         }
         while(!st.empty()){
-            res+=st.top();
-            st.pop();
+            res+=st.top();st.pop();
         }
         return res;
     }
