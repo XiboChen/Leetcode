@@ -1,23 +1,24 @@
 class Solution {
 public:
     Solution(vector<int>& w) {
-        sum=w;
-        for(int i=1;i<w.size();i++){
-            sum[i]=sum[i-1]+w[i];
+        num=w;
+        for(int i=1;i<num.size();++i){
+            num[i]=num[i-1]+w[i];
         }
     }
     
     int pickIndex() {
-        int x=rand()%sum.back(),left=0,right=sum.size()-1;
-        while(left<right){
-            int mid=left+(right-left)/2;
-            if(sum[mid]<=x) left=mid+1;
-            else right=mid;
+        int t=rand()%num.back();
+        int l=0,r=num.size()-1;
+        while(l<r){
+            int m=l+(r-l)/2;
+            if(num[m]<=t) l=m+1;
+            else r=m;
         }
-        return right;
+        return r;
     }
 private:
-    vector<int> sum;
+    vector<int> num;
 };
 
 /**
