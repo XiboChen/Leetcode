@@ -1,21 +1,21 @@
 class Solution {
 public:
     string reorganizeString(string s) {
-        vector<int> count(26,0);
-        int maxCount=0,n=s.size();
-        string res="";
-        for(auto c:s){
-            count[c-'a']++;
-            maxCount=max(maxCount,count[c-'a']);
+        vector<int> cnt(26,0);
+        int max_=0;
+        for(auto i:s){
+            ++cnt[i-'a'];
+            max_=max(max_,cnt[i-'a']);
         }
-        if(maxCount>(n+1)/2)
-            return "";
+        if(max_>(s.size()+1)/2) return "";
+        
         priority_queue<pair<int,char>> q;
-        for(int i=0;i<count.size();i++){
-            if(count[i]>0)
-                q.push({count[i],i+'a'});
+        for(int i=0;i<cnt.size();++i){
+            if(cnt[i]>0)
+                q.push({cnt[i],i+'a'});
         }
-        while(q.size()>=2){
+        string res="";
+        while(q.size()>1){
             auto t1=q.top();q.pop();
             auto t2=q.top();q.pop();
             res+=t1.second;
