@@ -1,12 +1,15 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        int cur_sum=0,res=0;
-        unordered_map<int,int> m{{0,1}};
+        int res=0;
+        int sum=0;
+        unordered_map<int,int> m;
+        m[0]=1;
         for(auto num:nums){
-            cur_sum+=num;
-            res+=m[cur_sum-k];
-            ++m[cur_sum];
+            sum+=num;
+            
+            if(m.count(sum-k)) res+=m[sum-k];
+            ++m[sum];
         }
         return res;
     }
