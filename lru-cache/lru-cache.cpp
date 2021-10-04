@@ -5,34 +5,27 @@ public:
     }
     
     int get(int key) {
-        auto t=m.find(key);
-        if(t==m.end()) return -1;
-        l.splice(l.begin(),l,t->second);
-        return t->second->second;
+        auto it=m.find(key);
+        if(it==m.end()) return -1;
+        l.splice(l.begin(),l,it->second);
+        return it->second->second;
     }
     
     void put(int key, int value) {
-        auto t=m.find(key);
-        if(t==m.end()){
-            l.push_front({key,value});
-            m[key]=l.begin();
-        }
-        else{
-            l.erase(t->second);
-            l.push_front({key,value});
-            m[key]=l.begin();;
-        }
+        auto it=m.find(key);
+        if(it!=m.end())  //find
+            l.erase(it->second);
+        l.push_front({key,value});
+        m[key]=l.begin();
+        
         if(l.size()>cap){
-            auto tmp=l.back();
+            m.erase(l.back().first);
             l.pop_back();
-            m.erase(tmp.first);
         }
     }
-    
 private:
     int cap;
     list<pair<int,int>> l;
-    //list<pair<int,int>>::iterator it;
     unordered_map<int,list<pair<int,int>>::iterator> m;
 };
 
