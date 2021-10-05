@@ -1,31 +1,33 @@
 class MedianFinder {
 public:
-    /** initialize your data structure here. */
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-        if(max_h.empty()||num<max_h.top()){
-            max_h.push(num);
-        }else min_h.push(num);
-        
-        if(min_h.size()>max_h.size()){
-            max_h.push(min_h.top());min_h.pop();
+        if(dading.empty()||num<dading.top()){
+            dading.push(num);
         }
-        else if(max_h.size()-min_h.size()==2){
-            min_h.push(max_h.top());
-            max_h.pop();
+        else xiaoding.push(num);
+        
+        if(xiaoding.size()>dading.size()){
+            dading.push(xiaoding.top());
+            xiaoding.pop();
+        }
+        else if(dading.size()-xiaoding.size()>1){
+            xiaoding.push(dading.top());
+            dading.pop();
         }
     }
     
     double findMedian() {
-        if(max_h.size()>min_h.size()) return (double)(max_h.top());
-        else return ((double)(max_h.top())+(double)(min_h.top()))/2;
+        if(dading.size()>xiaoding.size())
+            return dading.top();
+        else return (double(dading.top())+double(xiaoding.top()))/2;
     }
 private:
-    priority_queue<int,vector<int>,greater<int>> min_h;
-    priority_queue<int,vector<int>,less<int>> max_h;
+    priority_queue<int> dading;
+    priority_queue<int,vector<int>,greater<int>> xiaoding;
 };
 
 /**
