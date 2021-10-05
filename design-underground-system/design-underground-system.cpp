@@ -10,17 +10,15 @@ public:
     
     void checkOut(int id, string stationName, int t) {
         outmap[inmap[id].first][stationName].first+=t-inmap[id].second;
-        outmap[inmap[id].first][stationName].second++;
+        outmap[inmap[id].first][stationName].second++; //人数
     }
     
     double getAverageTime(string startStation, string endStation) {
-        double ave=(double)outmap[startStation][endStation].first/(double)outmap[startStation][endStation].second;
-        return ave;
+        return (double)outmap[startStation][endStation].first/(double)outmap[startStation][endStation].second;
     }
 private:
     unordered_map<int,pair<string,int>> inmap;
-    unordered_map<string,unordered_map<string,pair<int,int>>> outmap; //instationname--outstationname-这个人进出站的时间差-numofpeople
-    
+    unordered_map<string, unordered_map<string,pair<double,int>>> outmap;
 };
 
 /**
