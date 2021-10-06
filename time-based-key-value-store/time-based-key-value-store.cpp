@@ -1,6 +1,5 @@
 class TimeMap {
 public:
-    /** Initialize your data structure here. */
     TimeMap() {
         
     }
@@ -15,7 +14,6 @@ public:
     }
 private:
     unordered_map<string,map<int,string>> m;
-    
 };
 
 /**
