@@ -11,22 +11,22 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        auto cmp=[](ListNode* a,ListNode* b){
-            return a->val>b->val;
-        };
+        auto cmp=[](ListNode* a,ListNode* b){ return a->val>b->val;};
         priority_queue<ListNode*,vector<ListNode*>,decltype(cmp)> q(cmp);
         for(auto list:lists){
-            if(list) q.push(list);
+            while(list){
+                q.push(list);
+                list=list->next;
+            }
         }
-        
-        ListNode* dummy=new ListNode(),*l=dummy;
+        ListNode * dummy=new ListNode();
+        ListNode * l=dummy;
         while(!q.empty()){
-            l->next=q.top();q.pop();
+            cout<<q.top()->val<<endl;
+            l->next=new ListNode(q.top()->val);
+            q.pop();
             l=l->next;
-            if(l->next) q.push(l->next);
         }
         return dummy->next;
     }
-    
-    
 };
