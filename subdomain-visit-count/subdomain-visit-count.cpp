@@ -1,17 +1,17 @@
 class Solution {
 public:
     vector<string> subdomainVisits(vector<string>& cpdomains) {
-        unordered_map<string,int> m;
-        for(auto domain:cpdomains){
-            auto it=domain.find(' ');
-            int time=stoi(domain.substr(0,it));
-            string web=domain.substr(it+1);
-            while(1){
-                m[web]+=time;
-                auto i=web.find('.');
-                if(i==string::npos) break;
-                web=web.substr(i+1);
+        unordered_map<string,int> m;  //domain-times
+        for(auto cpd:cpdomains){
+            auto pos=cpd.find(' ');
+            string time=cpd.substr(0,pos);
+            string domain=cpd.substr(pos+1);
+            for(int i=0;i<domain.size();++i){
+                if(domain[i]=='.'){
+                   m[domain.substr(i+1)]+=stoi(time); 
+                }
             }
+            m[domain]+=stoi(time);
         }
         vector<string> res;
         for(auto i:m){
