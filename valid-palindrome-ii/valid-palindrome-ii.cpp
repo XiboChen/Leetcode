@@ -1,18 +1,18 @@
 class Solution {
 public:
     bool validPalindrome(string s) {
-        int n=s.size(),lo=0,hi=n-1;
-        while(lo<hi){
-            if(s[lo]!=s[hi]){
-                for(int l=lo+1,h=hi;s[l]==s[h];++l,--h){
-                    if(l>=h) return true;
-                }
-                for(int l=lo,h=hi-1;s[l]==s[h];++l,--h){
-                    if(l>=h) return true;
-                }
-                return false;
-            }
-            --hi;++lo;
+        int n=s.size(),i=0,j=n-1;
+        while(i<j){
+            if(s[i]!=s[j]) return isv(s,i+1,j)||isv(s,i,j-1);
+            ++i;--j;
+        }
+        return true;
+    }
+    
+    bool isv(string s,int l,int r){
+        while(l<r){
+            if(s[l]!=s[r]) return false;
+            ++l,--r;
         }
         return true;
     }
