@@ -4,8 +4,8 @@ public:
         int n=stations.size();
         vector<long> dp(n+1,startFuel);
         for(int k=0;k<n;++k){
-            for(int i=k;i>=0&&dp[i]>=stations[k][0];--i){ //好歹现在的距离能到下一个station
-                dp[i+1]=max(dp[i+1],dp[i]+stations[k][1]);
+            for(int j=k;j>=0&&dp[j]>=stations[k][0];--j){
+                dp[j+1]=max(dp[j+1],dp[j]+stations[k][1]);
             }
         }
         for(int i=0;i<=n;++i){
