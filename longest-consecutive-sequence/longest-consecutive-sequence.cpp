@@ -4,18 +4,12 @@ public:
         unordered_set<int> s(nums.begin(),nums.end());
         int res=0;
         for(auto num:nums){
-            if(!s.count(num)) continue;
-            s.erase(num);
-            int pre=num-1, nxt=num+1;
-            while(s.count(pre)){
-                s.erase(pre);
-                --pre;
+            if(!s.count(num-1)){
+                int l=0;
+                while(s.count(num++)) ++l;
+                res=max(res,l);
             }
-            while(s.count(nxt)){
-                s.erase(nxt);
-                ++nxt;
-            }
-            res=max(res,nxt-pre-1);
+            
         }
         return res;
     }
