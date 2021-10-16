@@ -4,15 +4,14 @@ public:
         stack<int> st;
         int res=0,start=0;
         for(int i=0;i<s.size();++i){
-            if(s[i]=='(')
-                st.push(i);
-            else if(s[i]==')'){
+            if(s[i]=='(') st.push(i);
+            else{
                 if(st.empty()) start=i+1;
                 else{
                     st.pop();
-                    if(st.empty()){
+                    if(st.empty())
                         res=max(res,i-start+1);
-                    }else
+                    else
                         res=max(res,i-st.top());
                 }
             }
