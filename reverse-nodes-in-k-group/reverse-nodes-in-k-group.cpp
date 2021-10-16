@@ -11,13 +11,10 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* dummy=new ListNode(0);
+        ListNode* dummy=new ListNode();
         dummy->next=head;
-        int len=0;
-        while(head){
-            len++;
-            head=head->next;
-        }
+        int len=1;
+        while(head=head->next) ++len;
         ListNode* pre=dummy;
         for(int l=0;l+k<=len;l+=k){
             ListNode* cur=pre->next;
@@ -30,7 +27,25 @@ public:
             }
             pre=cur;
         }
-        
         return dummy->next;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
