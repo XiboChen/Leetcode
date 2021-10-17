@@ -12,38 +12,40 @@ public:
 
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        ostringstream out;
-        se(root,out);
-        return out.str();
+        ostringstream s;
+        se(root,s);
+        return s.str();
     }
 
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
         istringstream in(data);
-        return de(in);
+        return deserialize(in);
     }
     
-    void se(TreeNode* root, ostringstream& out){
+    void se(TreeNode* root,ostringstream& s){
         if(!root){
-            out<<"# ";
+            s<<"# ";
             return;
         }
-        out<<root->val<<" ";
-        se(root->left,out);
-        se(root->right,out);
-    }
+        s<<root->val<<" ";
+        se(root->left,s);
+        se(root->right,s);
+    } 
     
-    TreeNode* de(istringstream& in){
-        
+    TreeNode* deserialize(istringstream& in){
         string val;
         in>>val;
         if(val=="#") return NULL;
         TreeNode* root=new TreeNode(stoi(val));
-        root->left=de(in);
-        root->right=de(in);
+        root->left=deserialize(in);
+        root->right=deserialize(in);
         return root;
     }
 };
+
+
+
 
 // Your Codec object will be instantiated and called as such:
 // Codec ser, deser;
